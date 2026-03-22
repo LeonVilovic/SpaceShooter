@@ -1,8 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+//using System.Linq;
+//using System.Text;
+
 public class ObjectPoolerBackgroundObjects : MonoBehaviour
 {
     public List<ChancedPrefab> chancedPrefabList;
@@ -84,6 +87,7 @@ public class ObjectPoolerBackgroundObjects : MonoBehaviour
     }
     public GameObject GetPooledObject()
     {
+        //Debug.Log(GeneratePoolStateReport(pool));
         for (int i = pool.Count - 1; i >= 0; i--)
         {
             GameObject obj = pool[i];
@@ -101,4 +105,32 @@ public class ObjectPoolerBackgroundObjects : MonoBehaviour
         }
         return CreateNewObject();
     }
+    // Need System.Linq; System.Text;
+    //public string GeneratePoolStateReport(List<GameObject> poolCopy)
+    //{
+    //    if (poolCopy == null || poolCopy.Count == 0)
+    //        return "Pool is empty.";
+
+    //    var sb = new StringBuilder();
+    //    int total = poolCopy.Count;
+
+    //    var grouped = poolCopy
+    //        .Where(obj => obj != null)
+    //        .GroupBy(obj => obj.name)
+    //        .Select(g => new
+    //        {
+    //            Name = g.Key,
+    //            Count = g.Count(),
+    //            Percentage = (double)g.Count() / total * 100
+    //        })
+    //        .OrderByDescending(x => x.Count)
+    //        .ThenBy(x => x.Name);
+
+    //    foreach (var item in grouped)
+    //    {
+    //        sb.AppendLine($"Prefab: {item.Name} | Count: {item.Count} | Percentage: {item.Percentage:F2}%");
+    //    }
+
+    //    return sb.ToString();
+    //}
 }

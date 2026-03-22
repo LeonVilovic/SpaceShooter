@@ -11,7 +11,10 @@ public class PlayerController : MonoBehaviour
     public Vector2 moveVector;
 
     private Animator animator;
+    private AnimatorStateInfo animatorStateInfo;
     //private Rigidbody2D rigidbody2D;
+
+    bool isAttacking;
 
     [Header("Movement")]
     public float moveSpeed = 3f;
@@ -36,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Attack();
+        animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
     }
 
     private void Move()
@@ -50,8 +54,22 @@ public class PlayerController : MonoBehaviour
     {
         if (fireAction.WasPressedThisFrame())
         {
-            
-            animator.SetTrigger("isSlashing");
+            if (moveVector.y > 0)
+            {
+                animator.Play("Slash3");
+            }
+            if (moveVector.y < 0)
+            {
+                animator.Play("Slash2");
+            }
+            if (moveVector.y == 0)
+            {
+                animator.Play("Slash1");
+            }
+        }
+        if ((animatorStateInfo.IsName("Slash1") || animatorStateInfo.IsName("Slash2") || animatorStateInfo.IsName("Slash3")) && animatorStateInfo.normalizedTime >= 1f)
+        {
+            animator.Play("Idle");
         }
     }
 }
